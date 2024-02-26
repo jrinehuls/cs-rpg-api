@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
-using RPG_API.Models;
 
 namespace RPG_API.Controllers
 {
@@ -10,29 +9,30 @@ namespace RPG_API.Controllers
     [Route("api/[controller]")] // @Requestmapping("api/Character")
     public class CharacterController : ControllerBase
     {
-        private List<Character> characters = new List<Character> {
-            new Character(),
-            new Character { Id = 1, Name = "Sam"}
-        };
+
+        private readonly ICharacterService characterService;
+
+        public CharacterController(ICharacterService characterService) {
+            this.characterService = characterService;
+        }
 
         // ActionResult<Character> = ResponseEntity<Character>
         [HttpGet("/all")] // @GetMapping("/all")
         public ActionResult<List<Character>> GetCharacters()
         {
-            return Ok(characters);
+            return Ok(characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Character> GetCharacter(int id)
         {
-            return Ok(characters.FirstOrDefault(c => c.Id == id));
+            return Ok(characterService.GetCharacterById(id));
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> createCharater(Character character)
+        public ActionResult<List<Character>> SaveCharater(Character character)
         {
-            characters.Add(character);
-            return Ok(characters);
+            return Ok(characterService.SaveCharacter(character));
         }
 
     }
