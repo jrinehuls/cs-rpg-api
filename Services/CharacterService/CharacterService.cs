@@ -9,25 +9,27 @@ namespace RPG_API.Services.CharacterService
             new Character { Id = 1, Name = "Sam"}
         };
 
-        public List<Character> GetAllCharacters()
+        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
         {
-            return characters;
+            ServiceResponse<List<Character>> serviceResponse = new ServiceResponse<List<Character>>();
+            serviceResponse.Data= characters;
+            return serviceResponse;
         }
 
-        public Character GetCharacterById(int id)
+        public async Task<ServiceResponse<Character>> GetCharacterById(int id)
         {
             Character? character = characters.FirstOrDefault(c => c.Id == id);
-            if (character != null)
-            {
-                return character;
-            }
-            throw new Exception($"Character with id: {id} not found.");
+            ServiceResponse<Character> serviceResponse = new ServiceResponse<Character>();
+            serviceResponse.Data = character;
+            return serviceResponse;
         }
 
-        public List<Character> SaveCharacter(Character character)
+        public async Task<ServiceResponse<List<Character>>> SaveCharacter(Character character)
         {
             characters.Add(character);
-            return characters;
+            ServiceResponse<List<Character>> serviceResponse = new ServiceResponse<List<Character>>();
+            serviceResponse.Data = characters;
+            return serviceResponse;
         }
     }
 

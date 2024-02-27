@@ -18,21 +18,21 @@ namespace RPG_API.Controllers
 
         // ActionResult<Character> = ResponseEntity<Character>
         [HttpGet("/all")] // @GetMapping("/all")
-        public ActionResult<List<Character>> GetCharacters()
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> GetCharacters()
         {
-            return Ok(characterService.GetAllCharacters());
+            return Ok(await characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Character> GetCharacter(int id)
+        public async Task<ActionResult<ServiceResponse<Character>>> GetCharacter(int id)
         {
-            return Ok(characterService.GetCharacterById(id));
+            return Ok(await characterService.GetCharacterById(id));
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> SaveCharater(Character character)
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> SaveCharater(Character character)
         {
-            return Ok(characterService.SaveCharacter(character));
+            return Ok(await characterService.SaveCharacter(character));
         }
 
     }
