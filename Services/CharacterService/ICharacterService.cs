@@ -6,11 +6,11 @@ namespace RPG_API.Services.CharacterService
 
     public interface ICharacterService
     {
-        Task<ServiceResponse<List<Character>>> GetAllCharacters();
+        Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters();
 
-        Task<ServiceResponse<Character>> GetCharacterById(int id);
+        Task<ServiceResponse<GetCharacterDto>> GetCharacterById(int id);
 
-        Task<ServiceResponse<List<Character>>> SaveCharacter(Character character);
+        Task<ServiceResponse<List<GetCharacterDto>>> SaveCharacter(AddCharacterDto character);
     }
 
 }
