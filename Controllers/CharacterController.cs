@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
+using RPG_API.Models;
 
 namespace RPG_API.Controllers
 {
@@ -42,6 +43,17 @@ namespace RPG_API.Controllers
             if (response.Data is null) 
             { 
                 return NotFound(response); 
+            }
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> DeleteCharacter(int id)
+        {
+            ServiceResponse<List<GetCharacterDto>> response = await characterService.DeleteCharacter(id);
+            if (response.Data is null)
+            {
+                return NotFound(response);
             }
             return Ok(response);
         }
