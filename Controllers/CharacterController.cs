@@ -35,6 +35,17 @@ namespace RPG_API.Controllers
             return Ok(await characterService.SaveCharacter(character));
         }
 
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> UpdateCharater(UpdateCharacterDto character)
+        {
+            ServiceResponse<GetCharacterDto> response = await characterService.UpdateCharacter(character);
+            if (response.Data is null) 
+            { 
+                return NotFound(response); 
+            }
+            return Ok(response);
+        }
+
     }
 
 }

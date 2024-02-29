@@ -10,7 +10,11 @@ namespace RPG_API.Services.CharacterService
 
         Task<ServiceResponse<GetCharacterDto>> GetCharacterById(int id);
 
-        Task<ServiceResponse<List<GetCharacterDto>>> SaveCharacter(AddCharacterDto character);
+        Task<ServiceResponse<List<GetCharacterDto>>> SaveCharacter(AddCharacterDto characterDto);
+
+        Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto characterDto);
+
+        Task<ServiceResponse<List<GetCharacterDto>>> DeleteCharacter(int id);
     }
 
 }

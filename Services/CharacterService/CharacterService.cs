@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using RPG_API.Dtos;
+using System.Linq.Expressions;
 
 namespace RPG_API.Services.CharacterService
 {
@@ -40,6 +41,29 @@ namespace RPG_API.Services.CharacterService
             characters.Add(character);
             ServiceResponse<List<GetCharacterDto>> serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             serviceResponse.Data = characters.Select(c => mapper.Map<GetCharacterDto>(c)).ToList();
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto characterDto)
+        {
+            ServiceResponse<GetCharacterDto> serviceResponse = new ServiceResponse<GetCharacterDto>();
+            try {
+                Character? character = characters.FirstOrDefault(c => c.Id == characterDto.Id);
+                if (character is null)
+                    throw new Exception($"Character with id: {characterDto.Id} not found");
+
+                character.Name = characterDto.Name;
+                character.HitPoints = characterDto.HitPoints;
+                character.Strength = characterDto.Strength;
+                character.Defense = characterDto.Defense;
+                character.Intelligence = characterDto.Intelligence;
+                character.RpgClass = characterDto.RpgClass;
+
+                serviceResponse.Data = mapper.Map<GetCharacterDto>(character);
+            }  catch (Exception e) {
+                serviceResponse.Success= false;
+                serviceResponse.message= e.Message;
+            }
             return serviceResponse;
         }
     }
