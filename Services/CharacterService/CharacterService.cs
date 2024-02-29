@@ -8,7 +8,7 @@ namespace RPG_API.Services.CharacterService
     public class CharacterService : ICharacterService
     {
 
-        private List<Character> characters = new List<Character> {
+        private static List<Character> characters = new List<Character> {
             new Character(),
             new Character { Id = 1, Name = "Sam"}
         };
@@ -76,7 +76,6 @@ namespace RPG_API.Services.CharacterService
                 if (character is null)
                     throw new Exception($"Character with id: {id} not found");
 
-                // This cheats! Remove id 0, then remove id 1, but 0 comes back to list!
                 characters.Remove(character);
 
                 serviceResponse.Data = characters.Select(c => mapper.Map<GetCharacterDto>(c)).ToList();
