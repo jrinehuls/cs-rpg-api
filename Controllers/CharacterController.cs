@@ -7,7 +7,7 @@ namespace RPG_API.Controllers
 {
 
     [ApiController] // @RestController
-    [Route("api/[controller]")] // @Requestmapping("api/Character")
+    [Route("api/[controller]")] // @RequestMapping("api/Character")
     public class CharacterController : ControllerBase
     {
 

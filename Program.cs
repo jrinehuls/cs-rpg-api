@@ -1,5 +1,5 @@
 global using RPG_API.Models;
-global using RPG_API.Dtos;
+global using RPG_API.Dtos.Character;
 global using RPG_API.Services.CharacterService;
 
 var builder = WebApplication.CreateBuilder(args);

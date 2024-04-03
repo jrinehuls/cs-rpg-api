@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RPG_API.Dtos;
+using RPG_API.Dtos.Character;
 
 namespace RPG_API
 {
