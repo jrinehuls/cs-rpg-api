@@ -12,7 +12,7 @@ namespace RPG_API.Services.CharacterService
             new Character { Id = 1, Name = "Sam"}
         };
 
-        private IMapper mapper;
+        private readonly IMapper mapper;
 
         public CharacterService(IMapper mapper) {
             this.mapper = mapper;
@@ -49,7 +49,9 @@ namespace RPG_API.Services.CharacterService
             try {
                 Character? character = characters.FirstOrDefault(c => c.Id == characterDto.Id);
                 if (character is null)
+                {
                     throw new Exception($"Character with id: {characterDto.Id} not found");
+                }
 
                 character.Name = characterDto.Name;
                 character.HitPoints = characterDto.HitPoints;
