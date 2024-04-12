@@ -36,7 +36,7 @@ namespace RPG_API.Data
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            response.Data = user.Id;
+            response.Data = user.Id; // Apparently sets the user ID without having to query DB.
             return response;
         }
 

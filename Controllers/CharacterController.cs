@@ -18,7 +18,7 @@ namespace RPG_API.Controllers
         }
 
         // ActionResult<Character> = ResponseEntity<Character>
-        [HttpGet("/all")] // @GetMapping("/all")
+        [HttpGet("all")] // @GetMapping("/all")
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetCharacters()
         {
             return Ok(await characterService.GetAllCharacters());
