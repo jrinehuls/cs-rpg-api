@@ -26,5 +26,16 @@ namespace RPG_API.Controllers
             }
             return Ok(response); // Could be Created(location, response);
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDto userDto)
+        {
+            ServiceResponse<string> response = await _authRepository.Login(userDto.Username, userDto.Password);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }

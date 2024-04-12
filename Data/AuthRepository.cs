@@ -1,6 +1,7 @@
 ﻿
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace RPG_API.Data
 {
@@ -14,9 +15,26 @@ namespace RPG_API.Data
             _context = context;
         }
 
-        public Task<ServiceResponse<string>> Login(string username, string password)
+        public async Task<ServiceResponse<string>> Login(string username, string password)
         {
-            throw new NotImplementedException();
+            ServiceResponse<string> response = new();
+            User? user = await _context.Users.FirstOrDefaultAsync(u => u.Username.ToLower().Equals(username.ToLower()));
+            if (user is null)
+            {
+                response.Success = false;
+                response.Message = $"User with username: {username} not found";
+            }
+            else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Incorrect password";
+            }
+            else
+            {
+                response.Data = $"{user.Id}";
+            }
+
+            return response;
         }
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
@@ -53,9 +71,16 @@ namespace RPG_API.Data
         // Out parameters are set by this method to the variables where this method is invoked
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            HMACSHA512 hmac = new();
+            HMACSHA512 hmac = new ();
             passwordSalt = hmac.Key;
             passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            var hmac = new HMACSHA512(passwordSalt);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return computedHash.SequenceEqual(passwordHash);
         }
     }
 }
