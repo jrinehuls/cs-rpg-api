@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
 using RPG_API.Models;
 
 namespace RPG_API.Controllers
 {
-
+    [Authorize]
     [ApiController] // @RestController
     [Route("api/[controller]")] // @RequestMapping("api/Character")
     public class CharacterController : ControllerBase
