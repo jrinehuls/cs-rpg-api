@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
 using RPG_API.Models;
+using System.Security.Claims;
 
 namespace RPG_API.Controllers
 {
@@ -19,11 +20,13 @@ namespace RPG_API.Controllers
         }
 
         // ActionResult<Character> = ResponseEntity<Character>
-        [AllowAnonymous]
+        // [AllowAnonymous] Allows unauthenticated users access
         [HttpGet("all")] // @GetMapping("/all")
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetCharacters()
         {
-            return Ok(await characterService.GetAllCharacters());
+            // Note: User is property of ControllerBase, not User model
+            int userId = int.Parse(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)!.Value);
+            return Ok(await characterService.GetAllCharacters(userId));
         }
 
         [HttpGet("{id}")]

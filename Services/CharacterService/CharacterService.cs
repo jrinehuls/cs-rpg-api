@@ -16,10 +16,10 @@ namespace RPG_API.Services.CharacterService
             this.context = context;
         }
 
-        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters(int userId)
         {
             ServiceResponse<List<GetCharacterDto>> serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
-            List<Character> characters = await context.Character.ToListAsync();
+            List<Character> characters = await context.Character.Where(c => c.User!.Id == userId).ToListAsync();
             serviceResponse.Data = characters.Select(c => mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
         }
