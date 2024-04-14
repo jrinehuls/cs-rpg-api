@@ -6,7 +6,7 @@ using RPG_API.Models;
 
 namespace RPG_API.Controllers
 {
-    [Authorize]
+    [Authorize] // Can be applied at method level
     [ApiController] // @RestController
     [Route("api/[controller]")] // @RequestMapping("api/Character")
     public class CharacterController : ControllerBase
@@ -19,6 +19,7 @@ namespace RPG_API.Controllers
         }
 
         // ActionResult<Character> = ResponseEntity<Character>
+        [AllowAnonymous]
         [HttpGet("all")] // @GetMapping("/all")
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetCharacters()
         {
