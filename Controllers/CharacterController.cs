@@ -61,6 +61,17 @@ namespace RPG_API.Controllers
             return Ok(response);
         }
 
+        [HttpPatch("add-skill")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacterSKill(AddCharacterSkillDto characterSkillDto)
+        {
+            ServiceResponse<GetCharacterDto> response = await characterService.AddCharacterSkill(characterSkillDto);
+            if (response.Data is null)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
     }
 
 }

@@ -15,6 +15,8 @@ namespace RPG_API.Services.CharacterService
         Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto characterDto);
 
         Task<ServiceResponse<List<GetCharacterDto>>> DeleteCharacter(int id);
+
+        Task<ServiceResponse<GetCharacterDto>> AddCharacterSkill(AddCharacterSkillDto characterSkillDto);
     }
 
 }

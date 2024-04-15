@@ -1,4 +1,5 @@
 ﻿
+using RPG_API.Dtos.Skill;
 using RPG_API.Dtos.Weapon;
 
 namespace RPG_API.Dtos.Character
@@ -13,5 +14,6 @@ namespace RPG_API.Dtos.Character
         public int Intelligence { get; set; } = 10;
         public RpgClass RpgClass { get; set; } = RpgClass.Knight;
         public GetWeaponDto? Weapon { get; set; }
+        public HashSet<GetSkillDto>? Skills { get; set; }
     }
 }
