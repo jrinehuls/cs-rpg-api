@@ -13,5 +13,6 @@ namespace RPG_API.Data
         // Getter returns set of characters, no setter, I think.
         public DbSet<Character> Character => Set<Character>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<Weapon> Weapon => Set<Weapon>();
     }
 }
