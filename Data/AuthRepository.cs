@@ -113,7 +113,7 @@ namespace RPG_API.Data
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             SecurityToken token = handler.CreateToken(tokenDescriptor);
 
-            return handler.WriteToken(token);
+            return "Bearer " + handler.WriteToken(token);
 
         }
     }

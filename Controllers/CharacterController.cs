@@ -24,9 +24,7 @@ namespace RPG_API.Controllers
         [HttpGet("all")] // @GetMapping("/all")
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetCharacters()
         {
-            // Note: User is property of ControllerBase, not User model
-            int userId = int.Parse(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)!.Value);
-            return Ok(await characterService.GetAllCharacters(userId));
+            return Ok(await characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
