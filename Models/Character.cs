@@ -12,6 +12,10 @@
         public User? User { get; set; }
         public Weapon? Weapon { get; set; }
         public HashSet<Skill>? Skills { get; set; }
+        public int Fights { get; set; }
+        public int Victories { get; set; }
+        public int Defeats { get; set; }
+
 
         // public Character() { }
     }

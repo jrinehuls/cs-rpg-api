@@ -15,5 +15,8 @@ namespace RPG_API.Dtos.Character
         public RpgClass RpgClass { get; set; } = RpgClass.Knight;
         public GetWeaponDto? Weapon { get; set; }
         public HashSet<GetSkillDto>? Skills { get; set; }
+        public int Fights { get; set; }
+        public int Victories { get; set; }
+        public int Defeats { get; set; }
     }
 }
