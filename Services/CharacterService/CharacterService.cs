@@ -109,7 +109,7 @@ namespace RPG_API.Services.CharacterService
             return serviceResponse;
         }
 
-        // Note: User is property of ControllerBase, not User model
+        // Note: In this case, User is property of ControllerBase, not User model
         private int GetUserId() => int.Parse(httpContextAccessor.HttpContext!.User
             .FindFirstValue(ClaimTypes.NameIdentifier)!);
 
