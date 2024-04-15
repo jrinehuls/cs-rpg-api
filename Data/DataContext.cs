@@ -14,5 +14,6 @@ namespace RPG_API.Data
         public DbSet<Character> Character => Set<Character>();
         public DbSet<User> Users => Set<User>();
         public DbSet<Weapon> Weapon => Set<Weapon>();
+        public DbSet<Skill> Skill => Set<Skill>();
     }
 }
