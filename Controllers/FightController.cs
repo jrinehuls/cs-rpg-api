@@ -38,5 +38,16 @@ namespace RPG_API.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost("fight")]
+        public async Task<ActionResult<ServiceResponse<FightResultDto>>> Fight(FightRequestDto fightRequest)
+        {
+            ServiceResponse<FightResultDto> response = await _fightService.Fight(fightRequest);
+            if (!response.Success)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }
