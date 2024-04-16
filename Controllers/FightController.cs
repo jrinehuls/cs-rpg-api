@@ -27,5 +27,16 @@ namespace RPG_API.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost("skill-attack")]
+        public async Task<ActionResult<ServiceResponse<AttackResultDto>>> SkillAttack(SkillAttackDto skillAttack)
+        {
+            var response = await _fightService.SkillAttack(skillAttack);
+            if (!response.Success)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }
