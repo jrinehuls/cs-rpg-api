@@ -1,14 +1,17 @@
-﻿using RPG_API.Dtos.Fight;
+﻿using AutoMapper;
+using RPG_API.Dtos.Fight;
 
 namespace RPG_API.Services.FightService
 {
     public class FightService : IFightService
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public FightService(DataContext context)
+        public FightService(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<ServiceResponse<AttackResultDto>> WeaponAttack(WeaponAttackDto weaponAttack)
@@ -186,6 +189,23 @@ namespace RPG_API.Services.FightService
             return response;
         }
 
+        public async Task<ServiceResponse<List<HighScoreDto>>> GetHighScore()
+        {
+            var response = new ServiceResponse<List<HighScoreDto>>();
+
+            List<Character> characters = await _context.Character
+                .Where(c => c.Fights > 0)
+                .OrderByDescending(c => c.Victories)
+                .ThenBy(c => c.Defeats)
+                .ToListAsync();
+
+            List<HighScoreDto> highScores = characters.Select(c => _mapper.Map<HighScoreDto>(c)!).ToList();
+
+            response.Data = highScores;
+
+            return response;
+        }
+
         private static int DoWeaponAttack(Character attacker, Character opponent)
         {
             if (attacker.Weapon is null)
@@ -221,5 +241,6 @@ namespace RPG_API.Services.FightService
 
             return damage;
         }
+
     }
 }

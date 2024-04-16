@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using RPG_API.Dtos.Character;
 using RPG_API.Dtos.Skill;
 using RPG_API.Dtos.Weapon;
+using RPG_API.Dtos.Fight;
 
 namespace RPG_API
 {
@@ -14,6 +16,7 @@ namespace RPG_API
             CreateMap<Weapon, GetWeaponDto>();
             CreateMap<AddWeaponDto, Weapon>();
             CreateMap<Skill, GetSkillDto>();
+            CreateMap<Character, HighScoreDto>();
         }
     }
 }

@@ -49,5 +49,12 @@ namespace RPG_API.Controllers
             }
             return Ok(response);
         }
+
+        [HttpGet("high-scores")]
+        public async Task<ActionResult<ServiceResponse<List<HighScoreDto>>>> GetHighScores()
+        {
+            ServiceResponse<List<HighScoreDto>> response = await _fightService.GetHighScore();
+            return Ok(response);
+        }
     }
 }

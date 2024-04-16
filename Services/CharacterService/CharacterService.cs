@@ -27,7 +27,7 @@ namespace RPG_API.Services.CharacterService
                 .Include(c => c.Weapon)
                 .Include(c => c.Skills)
                 .Where(c => c.User!.Id == GetUserId()).ToListAsync();
-            serviceResponse.Data = characters.Select(c => mapper.Map<GetCharacterDto>(c)).ToList();
+            serviceResponse.Data = characters.Select(c => mapper.Map<GetCharacterDto>(c)!).ToList();
             return serviceResponse;
         }
 
@@ -71,7 +71,7 @@ namespace RPG_API.Services.CharacterService
                     .Include(c => c.Skills)
                     .Include(c => c.User) // If not, the user will be null. It won't get the related user from the users table
                     .FirstOrDefaultAsync(c => c.Id == characterDto.Id);
-                if (character is null || character.User.Id != GetUserId())
+                if (character is null || character.User!.Id != GetUserId())
                 {
                     throw new Exception($"Character with id: {characterDto.Id} not found");
                 }

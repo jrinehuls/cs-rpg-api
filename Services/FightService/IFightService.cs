@@ -7,5 +7,6 @@ namespace RPG_API.Services.FightService
         Task<ServiceResponse<AttackResultDto>> WeaponAttack(WeaponAttackDto weaponAttack);
         Task<ServiceResponse<AttackResultDto>> SkillAttack(SkillAttackDto skillAttack);
         Task<ServiceResponse<FightResultDto>> Fight(FightRequestDto fightRequest);
+        Task<ServiceResponse<List<HighScoreDto>>> GetHighScore();
     }
 }
